@@ -1,5 +1,4 @@
 package entidades;
-
 public class Credenciales {
 	private Long id;
 	private String nombre;

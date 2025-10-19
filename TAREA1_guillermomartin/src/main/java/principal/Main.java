@@ -1,6 +1,6 @@
 /**
  *Clase Main.java
- * 
+ *
  *@author Guillermo Martin Fueyo
  *@version 1.0
  */
@@ -9,18 +9,29 @@
 
 package principal;
 
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
+import utils.ComparadorNombreEspectaculo;
 
 import entidades.Credenciales;
+import entidades.Espectaculo;
 import entidades.Perfiles;
 import entidades.Sesion;
 
 public class Main {
     private static Scanner leer=new Scanner(System.in);
-    
+
     public static void main(String[] args) {
-        
+    	
+
         Sesion sesionActual=new Sesion("invitado",Perfiles.INVITADO);
         int opcion;
         do {
@@ -31,7 +42,7 @@ public class Main {
     }
 
     private static int seleccionPerfil(Sesion sesion) {
-    	
+
     	System.out.println("== Menu Principal ==");
         switch (sesion.getPerfil()) {
         case INVITADO:
@@ -58,16 +69,16 @@ public class Main {
             System.out.println("3-Ver ficha personal");
             System.out.println("0-Salir");
             break;
-            
+
             default:System.out.println("Error");
     }
         System.out.println("Selecciona una opcion: ");
          int opcion=leer.nextInt();
 		 return opcion;
-         
+
     	}
-     
-    
+
+
     private static Sesion opcionesMenu(Sesion sesion, int opcion) {
         try {
             switch (sesion.getPerfil()) {
@@ -78,7 +89,7 @@ public class Main {
                             System.out.println("Mostrando espectaculos:");
                             break;
                         case 2:
-                            System.out.println("Iniciando sesion");         
+                            System.out.println("Iniciando sesion");
                             break;
                         case 0:
                             System.out.println("Saliendo del programa");
@@ -95,7 +106,7 @@ public class Main {
                             break;
                         case 2:
                             System.out.println("Cerrando sesion");
-                            
+
                             break;
                         case 3:
                             System.out.println("Introduce el nombre de usuario");
@@ -115,7 +126,7 @@ public class Main {
                             break;
                         case 2:
                             System.out.println("Cerrando sesion");
-                            
+
                             break;
                         case 3:
                             System.out.println("Gestionando espectaculo");
@@ -132,7 +143,7 @@ public class Main {
                             break;
                         case 2:
                             System.out.println("Cerrando sesion");
-                         
+
                             break;
                         case 3:
                             System.out.println("Mostrando ficha");
@@ -161,7 +172,7 @@ public class Main {
     		return admin;
     	}
 		return null;
-    	
+
     }
     private static Sesion login(Sesion sesionActual) {
     	if(sesionActual.getPerfil()!= Perfiles.INVITADO) {
@@ -176,17 +187,44 @@ public class Main {
         Credenciales credencial=comprobarLogin(nombre,password);
         if(credencial!=null) {
         	System.out.println("Bienvenido: "+ credencial.getNombre()+" - "+credencial.getPerfil());
-        	
+
         	return new Sesion(credencial.getNombre(),credencial.getPerfil());
         }
         else {
         	System.out.println("El usuario o la contraseña son incorrectos");
-        	
+
         	return sesionActual;
         }
-    	
-	
-    	
+        }
+
+    private static void mostrarEspectaculos() {
+        List<Espectaculo> listaEspectaculos = new ArrayList<>();
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("espectaculos.dat"))) {
+            while (true) {
+                Espectaculo espec = (Espectaculo) ois.readObject();
+                listaEspectaculos.add(espec);
+            }
+        } catch (EOFException eof) {
+           
+        } catch (FileNotFoundException e) {
+            System.out.println("No se encuentra el fichero espectaculos.dat");
+            return;
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error al leer el fichero");
+            return;
+        }
+
+        if (listaEspectaculos.isEmpty()) {
+            System.out.println("Todavía no hay espectáculos para visualizar");
+            return;
+        }
+
+       
+       Collections.sort(listaEspectaculos, new ComparadorNombreEspectaculo());
+
+        for (Espectaculo espe : listaEspectaculos) {
+            System.out.println(espe);
+        }
     }
-    
 }
