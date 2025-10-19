@@ -189,40 +189,4 @@ public class Main {
     	
     }
     
-
-    private static Credenciales comprobarLogin(String nombre, String password) {
-      	if(nombre.equals("admin") && password.equals("admin")) {
-        		Credenciales admin= new Credenciales();
-        		admin.setId(0L);
-        		admin.setNombre("admin");
-        		admin.setPassword("admin");
-        		admin.setPerfil(Perfiles.ADMIN);
-        		System.out.println("Te has autenticado como admin");
-        		return admin;
-        	}
-    		return null;
-        	
-        }
-        private static Sesion login(Sesion sesionActual) {
-        	if(sesionActual.getPerfil()!= Perfiles.INVITADO) {
-        		System.out.println("Hay una sesion ya iniciada");
-        		return sesionActual;
-        	}
-        	System.out.println("Inicio Sesion: ");
-        	System.out.println("Nombre: ");
-        	String nombre=leer.next();
-            System.out.println("Contraseña: ");
-            String password=leer.next();
-            Credenciales credencial=comprobarLogin(nombre,password);
-            if(credencial!=null) {
-            	System.out.println("Bienvenido: "+ credencial.getNombre()+" - "+credencial.getPerfil());
-            	
-            	return new Sesion(credencial.getNombre(),credencial.getPerfil());
-            }
-            else {
-            	System.out.println("El usuario o la contraseña son incorrectos");
-            	
-            	return sesionActual;
-            }
-        }
 }
