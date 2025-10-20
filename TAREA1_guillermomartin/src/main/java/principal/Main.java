@@ -9,15 +9,19 @@ package principal;
 
 import java.io.BufferedReader;
 import java.io.EOFException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.InputMismatchException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import utils.ComparadorNombreEspectaculo;
 
@@ -188,15 +192,15 @@ public class Main {
 		}
 
 		try (BufferedReader br = new BufferedReader(
-				new FileReader("credenciales.txt"))) {
+				new FileReader("ficheros/credenciales.txt"))) {
 			String linea;
 			while ((linea = br.readLine()) != null) {
 				String[] partes = linea.split("\\|");
 				if (partes.length < 7)
 					continue;
-				String nombreUsuario = partes[1];
-				String pass = partes[2];
-				String perfil = partes[6];
+				String nombreUsuario = partes[1].trim();
+				String pass = partes[2].trim();
+				String perfil = partes[6].trim();
 
 				if (nombre.equals(nombreUsuario) && password.equals(pass)) {
 					Credenciales credencial = new Credenciales();
@@ -285,4 +289,48 @@ public class Main {
 			System.out.println(espe);
 		}
 	}
+	private static void ficheroCredenciales()  {
+		 File fichero = new File("ficheros/credenciales.txt");
+		 try (PrintWriter writer = new PrintWriter(fichero)) {
+			 writer.println("1|luisdbb|miP@ss|luisdbb@educastur.org|Luis de Blas|España|coordinacion ");
+			 writer.println("2|camila|cam1las|camilas@circo.es|Camila Sánchez|Bolivia|artista ");
+			 writer.println("3|patrigc|patri|patriciagc@circo.es|Patricia González|España|artista");
+			 writer.println("4|alberto|alberto|alberto@circo.es|Alberto García|España|artista ");
+		 } catch (IOException e) {
+             System.out.println("Error creando fichero de credenciales");
+         }
+			 
+			 
+		 
+		 }
+	private static void registrarPersona() {
+		System.out.println("--Registro de nueva Persona--");
+		try {
+			Map<String,String>paises =leerPaises();
+			if(paises.isEmpty()) {
+				System.out.println("No hay paises disponibles");
+				
+			}
+			 System.out.print("Introduce el ID del país:");
+	            leer.nextLine();
+	            String idPais = leer.nextLine().trim();
+	            String nacionalidad = paises.get(idPais);
+	            if (nacionalidad == null) {
+	                System.out.println("El ID introducido no existe.");
+	                return;
+			
+		}
+	}catch(Exception e) {
+		System.out.println("Error");
+		
+	}
+
+	
+	}
+	private static Map<String,String> leerPaises(){
+		 Map<String, String> paises = new LinkedHashMap<>();
+		return paises;
+		
+	}
 }
+

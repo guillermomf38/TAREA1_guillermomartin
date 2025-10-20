@@ -78,8 +78,7 @@ package entidades;
 
 		@Override
 		public String toString() {
-			return "Espectaculo [id=" + id + ", nombre=" + nombre + ", fechaini=" + fechaini + ", fechafin=" + fechafin
-					+ ", idCoord=" + idCoord + "]";
+			return "Espectaculo [id=" + id + ", nombre=" + nombre + ", fechaini=" + fechaini + ", fechafin=" + fechafin+ "]";
 		}
 
 
