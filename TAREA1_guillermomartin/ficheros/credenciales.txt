@@ -1,0 +1,4 @@
+1|luisdbb|miP@ss|luisdbb@educastur.org|Luis de Blas|España|coordinacion
+2|camila|cam1las|camilas@circo.es|Camila Sánchez|Bolivia|artista
+3|patrigc|patri|patriciagc@circo.es|Patricia González|España|artista
+4|alberto|alberto|alberto@circo.es|Alberto García|España|artista
