@@ -29,4 +29,11 @@ public class Sesion {
 		this.perfil = perfil;
 	}
 
+	@Override
+	public String toString() {
+		return "Sesion [usuarioActual=" + usuarioActual + ", perfil=" + perfil
+				+ "]";
+	}
+	
+
 }

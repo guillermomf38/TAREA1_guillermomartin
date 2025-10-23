@@ -2,3 +2,5 @@
 2|camila|cam1las|camilas@circo.es|Camila Sánchez|Bolivia|artista
 3|patrigc|patri|patriciagc@circo.es|Patricia González|España|artista
 4|alberto|alberto|alberto@circo.es|Alberto García|España|artista
+5|guillerm|guille|guillermo@educastur.es|guillermo|España|coordinacion
+6|jorge|jorge123|jorge@educastur.es|jorge|España|artista
